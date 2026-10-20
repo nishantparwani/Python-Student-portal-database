@@ -75,11 +75,11 @@ def takeNameInput():
     address = addressEntry.get()
     addressEntry.delete(0, tk.END)
 
+    # Placeholders (?) keep names like O'Brien working and stop SQL injection.
     connection.execute("INSERT INTO " + TABLE_NAME + " ( " + STUDENT_NAME + ", " +
                        STUDENT_school + ", " + STUDENT_ADDRESS + ", " +
-                       STUDENT_PHONE + " ) VALUES ( '"
-                       + username + "', '" + schoolName + "', '" +
-                       address + "', " + str(phone) + " ); ")
+                       STUDENT_PHONE + " ) VALUES (?, ?, ?, ?);",
+                       (username, schoolName, address, phone))
     connection.commit()
     messagebox.showinfo("Success", "Data Saved Successfully.")
 
